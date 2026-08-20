@@ -5,7 +5,7 @@
 // Spotify app's "Redirect URIs" list in the dashboard.
 // ---------------------------------------------------------------
 const CONFIG = {
-  CLIENT_ID: "YOUR_SPOTIFY_CLIENT_ID_HERE",
+  CLIENT_ID: "df99a6bcaadd452ab1bd43994516bddb",
   REDIRECT_URI: window.location.origin + window.location.pathname,
   SCOPES: [
     "user-top-read",
