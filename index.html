@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spin — guess it from your own Spotify</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Login screen ===== -->
+  <section id="screen-login" class="screen">
+    <div class="brand">
+      <span class="brand-mark">◐</span>
+      <h1 class="brand-title">Spin</h1>
+    </div>
+    <p class="brand-sub">A guessing game built from the songs you actually play.</p>
+    <button id="btn-login" class="btn btn-primary">Connect Spotify</button>
+    <p class="login-note">Needs Spotify Premium (for playback) and a developer app you control — see <code>README.md</code>.</p>
+  </section>
+
+  <!-- ===== Setup screen ===== -->
+  <section id="screen-setup" class="screen hidden">
+    <header class="topbar">
+      <span class="brand-mini"><span class="brand-mark">◐</span> Spin</span>
+      <span id="user-name" class="user-name"></span>
+    </header>
+
+    <h2 class="setup-title">Choose your difficulty</h2>
+    <div class="diff-rack" role="tablist" aria-label="Difficulty">
+      <button class="diff-key" data-diff="easy" role="tab" aria-selected="true">
+        <span class="diff-label">Easy</span>
+        <span class="diff-meta">Your recent obsessions · 6 tries</span>
+      </button>
+      <button class="diff-key" data-diff="medium" role="tab" aria-selected="false">
+        <span class="diff-label">Medium</span>
+        <span class="diff-meta">Your last 6 months · 6 tries</span>
+      </button>
+      <button class="diff-key" data-diff="hard" role="tab" aria-selected="false">
+        <span class="diff-label">Hard</span>
+        <span class="diff-meta">Your all-time top 50 · 4 tries</span>
+      </button>
+    </div>
+
+    <div class="mode-row">
+      <button id="btn-daily" class="btn btn-secondary">Today's challenge</button>
+      <button id="btn-random" class="btn btn-ghost">Random song</button>
+    </div>
+
+    <div class="streak-line">
+      <span><strong id="streak-count">0</strong> day streak</span>
+      <span class="dot">·</span>
+      <span><strong id="played-count">0</strong> played</span>
+    </div>
+  </section>
+
+  <!-- ===== Game screen ===== -->
+  <section id="screen-game" class="screen hidden">
+    <header class="topbar">
+      <button id="btn-back" class="btn-icon" aria-label="Back to menu">←</button>
+      <span id="game-mode-label" class="user-name"></span>
+    </header>
+
+    <div class="record-wrap">
+      <div class="groove-ring" id="groove-ring">
+        <svg viewBox="0 0 240 240" id="groove-svg" aria-hidden="true"></svg>
+        <div class="disc" id="disc">
+          <img id="art" class="art" alt="" src="" />
+          <div class="disc-hole"></div>
+          <div class="tonearm" id="tonearm"></div>
+        </div>
+      </div>
+      <button id="btn-play" class="btn-play" aria-label="Play snippet">
+        <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="icon-pause" viewBox="0 0 24 24" class="hidden"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <p id="snippet-label" class="snippet-label">0:00 unlocked</p>
+    </div>
+
+    <form id="guess-form" class="guess-form" autocomplete="off">
+      <div class="guess-input-wrap">
+        <input id="guess-input" type="text" placeholder="Type a song from the pool…" />
+        <div id="guess-dropdown" class="guess-dropdown hidden"></div>
+      </div>
+      <button type="submit" class="btn btn-primary" id="btn-guess">Guess</button>
+      <button type="button" class="btn btn-ghost" id="btn-skip">Skip</button>
+    </form>
+
+    <ul id="guess-history" class="guess-history"></ul>
+  </section>
+
+  <!-- ===== Result screen ===== -->
+  <section id="screen-result" class="screen hidden">
+    <header class="topbar">
+      <span class="brand-mini"><span class="brand-mark">◐</span> Spin</span>
+    </header>
+    <div class="result-card">
+      <img id="result-art" class="result-art" alt="" src="" />
+      <p id="result-status" class="result-status"></p>
+      <h2 id="result-title" class="result-title"></h2>
+      <p id="result-artist" class="result-artist"></p>
+      <p id="result-summary" class="result-summary"></p>
+      <div class="result-grid" id="result-grid"></div>
+      <div class="result-actions">
+        <button id="btn-share" class="btn btn-secondary">Copy result</button>
+        <button id="btn-play-full" class="btn btn-ghost">Play full song</button>
+        <button id="btn-again" class="btn btn-primary">Play again</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
